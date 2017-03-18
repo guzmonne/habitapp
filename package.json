@@ -1,0 +1,24 @@
+{
+  "name": "habitapp",
+  "productName": "Habitapp",
+  "version": "0.0.1",
+  "description": "App for encouraging and developing habits for PC users.",
+  "main": "main.js",
+  "repository": "git@github.com:guzmonne/habitapp.git",
+  "author": "Guzman Monne <guzmonne@hotmail.com>",
+  "scripts": {
+    "build:help": "electron-packager --help",
+    "electron": "electron ./app/",
+    "build": "electron-packager ./app/ --platform=darwin --arch=x64 --out=build --overwrite",
+    "react:start": "cd app && yarn start",
+    "start": "nf start"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^1.6.2",
+    "electron-devtools-installer": "^2.1.0",
+    "electron-packager": "^8.6.0",
+    "foreman": "^2.0.0"
+  }
+}
