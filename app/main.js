@@ -1,8 +1,4 @@
 const {app, BrowserWindow} = require('electron')
-const {
-  default: installExtension,
-  REACT_DEVELOPER_TOOLS
-} = require('electron-devtools-installer')
 const path = require('path')
 const url = require('url')
 
@@ -14,11 +10,13 @@ function createWindow(){
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
 
+  console.log(path.join(__dirname, './index.html'))
+
   // In development an Environment variable can specify thr url for 
   // mainWindow.loadURL. If the env var exists we'll use it; else we'll use the
   // production URL.
   const startURL = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, './build/index.html'),
+    pathname: path.join(__dirname, './index.html'),
     protocol: 'file',
     slashes: true,
   })
@@ -35,10 +33,17 @@ function createWindow(){
     win = null
   })
 
-  // Install chrome extensions
-  installExtension(REACT_DEVELOPER_TOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
+  if (process.env.NODE_ENV === 'development'){
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS
+    } = require('electron-devtools-installer')
+    // Install chrome extensions
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err));
+  }
+
 }
 
 // This method will be called when Electron has finished
