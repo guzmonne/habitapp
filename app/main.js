@@ -1,4 +1,8 @@
 const {app, BrowserWindow} = require('electron')
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS
+} = require('electron-devtools-installer')
 const path = require('path')
 const url = require('url')
 
@@ -9,11 +13,6 @@ let win
 function createWindow(){
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
-
-  // Install development extensions
-  // installExtension(REACT_DEVELOPER_TOOLS)
-  // .then(console.log.bind(console, 'Added extension:'))
-  // .catch(console.log.bind(console, 'Got error:'))
 
   // In development an Environment variable can specify thr url for 
   // mainWindow.loadURL. If the env var exists we'll use it; else we'll use the
@@ -35,6 +34,11 @@ function createWindow(){
     // when you should delete the corresponding element.
     win = null
   })
+
+  // Install chrome extensions
+  installExtension(REACT_DEVELOPER_TOOLS)
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
 }
 
 // This method will be called when Electron has finished
@@ -54,6 +58,3 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (win === null) createWindow()
 })
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
