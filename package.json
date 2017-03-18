@@ -11,6 +11,7 @@
     "react:start": "cd react && yarn start",
     "start": "nf start",
     "react:build": "cd react && yarn build",
+    "precopy": "rm -Rf ./app/static",
     "copy": "cp -R ./react/build/ ./app/",
     "react:build:copy": "npm-run-all react:build copy",
     "package": "electron-packager ./app --platform=darwin --arch=x64 --out=./dist --overwrite",
