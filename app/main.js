@@ -9,9 +9,6 @@ let win
 function createWindow(){
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
-
-  console.log(path.join(__dirname, './index.html'))
-
   // In development an Environment variable can specify thr url for 
   // mainWindow.loadURL. If the env var exists we'll use it; else we'll use the
   // production URL.
@@ -32,7 +29,7 @@ function createWindow(){
     // when you should delete the corresponding element.
     win = null
   })
-
+  // If working in development mode, install React DevTools
   if (process.env.NODE_ENV === 'development'){
     const {
       default: installExtension,
@@ -43,7 +40,6 @@ function createWindow(){
       .then((name) => console.log(`Added Extension:  ${name}`))
       .catch((err) => console.log('An error occurred: ', err));
   }
-
 }
 
 // This method will be called when Electron has finished
