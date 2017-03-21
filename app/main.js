@@ -8,7 +8,13 @@ let win
 
 function createWindow(){
   // Create the browser window.
-  win = new BrowserWindow({width: 800, height: 600})
+  win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    //frame: false, // This disables the titlebar and frames.
+    //titleBarStyle: 'hidden-inset', // This is just for mac.
+    resizable: false,
+  })
   // In development an Environment variable can specify thr url for 
   // mainWindow.loadURL. If the env var exists we'll use it; else we'll use the
   // production URL.
