@@ -4,3 +4,4 @@ dist
 react/build
 .yarnclean
 gists
+db

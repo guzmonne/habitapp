@@ -37,7 +37,7 @@ const request = () => {
       if (!startedElectron) {
         startedElectron = true
         const exec = require('child_process').exec
-        exec(`NODE_ENV=development ELECTRON_START_URL=${startURL} yarn run electron`)
+        exec(`NODE_ENV=development ELECTRON_START_URL=${startURL} yarn electron`)
       }
     }
     res.on('error', console.log.bind(console, 'Got error:'))
