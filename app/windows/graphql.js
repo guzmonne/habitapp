@@ -1,5 +1,34 @@
 const {BrowserWindow} = require('electron')
+const net = require('net')
+const graphqlWindow = require('./graphql.js')
 
+let openedWindow = false
+const client = new net.Socket()
+const port = 3000
+
+/**
+ * @function openGraphqlWindow
+ * @description It opens the graphql window if it hasn't been opened yet.
+ * @return {Void}
+ */
+function openGraphqlWindow() {
+  // Close connection to the client
+  client.end()
+  // If the window is already opened, do nothing.
+  if (openedWindow === true) return
+  openedWindow = true
+  // Create the graphql window
+  graphqlWin = graphqlWindow(() => graphqlWin = null)
+}
+/**
+ * @function tryToOpenTheGraphqlWindow
+ * @description Attempts to the connect to the given port. If it succeeds it 
+ *              will call the openGraphqlWindow() function.
+ * @return {Void}
+ */
+function tryToOpenTheGraphqlWindow() {
+  client.connect({port}, openGraphqlWindow)
+}
 function graphqlWindow(onClose=function(){}) {
   // Define the new window.
   const win = new BrowserWindow({
@@ -15,4 +44,7 @@ function graphqlWindow(onClose=function(){}) {
   return win
 }
 
-exports = module.exports = graphqlWindow
+exports = module.exports = {
+  graphqlWindow,
+  tryToOpenTheGraphqlWindow,
+}
