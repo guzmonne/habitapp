@@ -11,8 +11,8 @@ function serverWindow(onClose=function(){}) {
   // Create the server window
   const win = new BrowserWindow({
     show: true,
-    width: 200,
-    height: 350,
+    width: 480,
+    height: 72,
     x: 0,
     y: 0,
     frame: false,

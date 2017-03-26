@@ -1,15 +1,21 @@
-const {app} = require('electron')
+const {app, ipcMain: ipc} = require('electron')
 const serverWindow = require('./windows/server.js')
+const nodeConsole = require('console')
 const mainWindow = require('./windows/main.js')
+const graphqlWindow = require('./windows/graphql.js')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 const wins = {
   main: null,
   server: null,
+  graphql: null,
 }
 
+console.log('Something')
+
 function createWindows() {
+  nodeConsole.log(app.getPath('userData'))
   if (wins.server === null)
     wins.server = serverWindow(() => wins.server = null)
   if (wins.main === null)
@@ -37,3 +43,16 @@ app.on('activate', () => {
 
 // Initialize nedb
 require('./modules/db.js')
+
+// Listen to ipcRendere events
+ipc.on('open:graphql_window', (event) => {
+  wins.graphql = graphqlWindow.open(() => {
+    wins.graphql = null
+    event.sender.send('close:graphql_window')
+  })
+  event.sender.send('open:graphql_window:done')
+})
+
+ipc.on('close:app', (event) => {
+  app.quit()
+})

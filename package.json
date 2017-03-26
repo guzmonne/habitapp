@@ -7,8 +7,8 @@
   "repository": "git@github.com:guzmonne/habitapp.git",
   "author": "Guzman Monne <guzmonne@hotmail.com>",
   "scripts": {
-    "electron": "electron ./app/",
-    "react:start": "cd react && yarn start",
+    "electron": "NODE_ENV=development ELECTRON_START_URL=http://localhost:5000 electron ./app/",
+    "react:start": "cd react && PORT=5000 yarn start",
     "start": "nf start",
     "react:build": "cd react && yarn build",
     "precopy": "rm -Rf ./app/static",
@@ -16,15 +16,19 @@
     "react:build:copy": "npm-run-all react:build copy",
     "package": "electron-packager ./app --platform=darwin --arch=x64 --out=./dist --overwrite",
     "build:package": "npm-run-all react:build:copy package",
-    "copy:package": "npm-run-all copy package"
+    "copy:package": "npm-run-all copy package",
+    "start:electron": "nodemon scripts/start-electron.js --ignore react/"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "milligram": "^1.3.0"
+  },
   "devDependencies": {
     "electron": "^1.6.2",
     "electron-devtools-installer": "^2.1.0",
     "electron-packager": "^8.6.0",
     "foreman": "^2.0.0",
+    "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2"
   }
 }

@@ -5,22 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="./_styles/reset.css">
+  <link rel="stylesheet" href="../../node_modules/milligram/dist/milligram.css">
   <link rel="stylesheet" href="./_styles/server.css">
 </head>
 <body>
-  <div class="container">
-  <div class="item">
-    <div class="toolbar">
-      <button class="graphql">
-      
-        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.6 34.44"><defs><style>.cls-1{fill:#d54599;}</style></defs><title>icon-graphql</title><g id="_Group_" data-name="&lt;Group&gt;"><path id="_Compound_Path_" data-name="&lt;Compound Path&gt;" class="cls-1" d="M28.81,25h-27L15.3,1.6ZM3.52,24H27.08L15.3,3.6Z"/><path id="_Compound_Path_2" data-name="&lt;Compound Path&gt;" class="cls-1" d="M15.3,31.17L2.51,24.26V10.37L15.3,3.46l12.79,6.91V24.26ZM3.51,23.66L15.3,30l11.79-6.37V11L15.3,4.6,3.51,11V23.66Z"/><circle id="_Path_" data-name="&lt;Path&gt;" class="cls-1" cx="3.01" cy="10.09" r="3.01"/><circle id="_Path_2" data-name="&lt;Path&gt;" class="cls-1" cx="27.59" cy="10.09" r="3.01"/><circle id="_Path_3" data-name="&lt;Path&gt;" class="cls-1" cx="27.59" cy="24.5" r="3.01"/><circle id="_Path_4" data-name="&lt;Path&gt;" class="cls-1" cx="3.01" cy="24.5" r="3.01"/><circle id="_Path_5" data-name="&lt;Path&gt;" class="cls-1" cx="15.3" cy="31.43" r="3.01"/><circle id="_Path_6" data-name="&lt;Path&gt;" class="cls-1" cx="15.3" cy="3.01" r="3.01"/></g></svg>
-      
-      </button>
-      
-      <button class="close">Close App</button>
-    </div>
+  <div class="toolbar">
+    <button class="button graphql">GraphiQL</button>
+    <button class="button graphql loading hidden">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </button>
+    <button class="button close">Close App</button>
   </div>
-</div>
   <script type="text/javascript" src="../modules/server.js"></script>
+  <script type="text/javascript" src="../modules/server-toolbar.js"></script>
 </body>
 </html>

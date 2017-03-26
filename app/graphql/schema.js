@@ -1,70 +1,53 @@
+const {merge, range, uniqueId} = require('lodash')
+const {makeExecutableSchema} = require('graphql-tools')
 const {
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLUnionType,
-  GraphQLEnumType,
-  GraphQLInputObjectType,
-  GraphQLInterfaceType,
-  GraphQLBoolean,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLString,
-  GraphQLID,
-  GraphQLList,
-} = require('graphql');
+  schema: clickSchema,
+} = require('./clicks.schema.js')
 
-const ClickType = new GraphQLObjectType({
-  name: 'ClickType',
-  fields: () => ({
-    _id: {type: GraphQLID},
-    timestamp: {type: GraphQLFloat},
-  })
-})
+let clicks = []
 
-const QueryType = new GraphQLObjectType({
-  name: 'Query',
-  fields: () => ({
-    clicks: {
-      type: new GraphQLList(ClickType),
-      description: 'Click events',
-      resolve: () => ([{_id: 1, timestamp: 2}])
+const rootSchema = [`
+type Query {
+  # A list of all the clicks stored.
+  clicks: [Click]
+}
+
+type Mutation {
+  # Add a new click
+  addClick(message: String): Click
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+`]
+
+const rootResolvers = {
+  Query: {
+    clicks(){
+      return clicks
     }
-  })
-})
-
-const MutationType = new GraphQLObjectType({
-  name: 'Mutation',
-  description: 'Mutation type',
-  fields: {
-    click: {
-      name: 'Click Mutations',
-      description: 'Click mutation types',
-      type: new GraphQLObjectType({
-        name: 'click',
-        description: 'Click mutations',
-        fields: {
-          add: {
-            type: ClickType,
-            args: {
-              timestamp: {type: GraphQLString},
-            },
-            resolve: (source, {timestamp}) => {
-              console.log(args)
-              return {
-                _id: Date.now(),
-                timestamp,
-              }
-            }
-          }
-        }
-      })
+  },
+  Mutation: {
+    addClick(root, {message}){
+      const click = {
+        _id: uniqueId('click'),
+        timestamp: Date.now(),
+        message,
+      }
+      clicks = clicks.concat(click)
+      return Promise.resolve(click) 
     }
   }
+}
+
+const schema = [...rootSchema, ...clickSchema]
+const resolvers = merge(rootResolvers)
+
+const executableSchema = makeExecutableSchema({
+  typeDefs: schema,
+  resolvers,
 })
 
-const schema = new GraphQLSchema({
-  query: QueryType,
-  mutation: MutationType,
-})
-
-exports = module.exports = schema
+exports = module.exports = executableSchema

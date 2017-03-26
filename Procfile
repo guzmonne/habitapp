@@ -1,2 +1,2 @@
 react: yarn react:start
-electron: node scripts/wait-for-response.js
+electron: nodemon scripts/wait-for-response.js --ignore react/
