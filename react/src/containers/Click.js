@@ -53,13 +53,6 @@ const ClickContainerWithDataAndMutation = (
     props: ({mutate}) => ({
       addClick: message => mutate({
         variables: {message},
-        optimisticResponse: {
-          __typename: 'Mutation',
-          addClick: {
-            __typename: 'Click',
-            message,
-          }
-        },
         updateQueries: {
           Clicks:(prev, {mutationResult}) => {
             console.log(mutationResult)

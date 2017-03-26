@@ -24,4 +24,6 @@ app.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',
 }))
 
+app.get('/on', (req, res) => (res.status(200).json({ok: true})))
+
 app.listen(PORT)
